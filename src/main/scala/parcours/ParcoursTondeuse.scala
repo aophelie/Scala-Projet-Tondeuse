@@ -1,44 +1,59 @@
 package parcours
 
 import scala.io.Source
+import scala.util.Try
 
 object ParcoursTondeuse {
   def main(args: Array[String]): Unit = {
 
     val path ="D:\\M2-IFLogiciels\\Scala\\Projet-M2-Tondeuse\\test.txt"
-    val ln = readFile(path)
 
     val pelouse = new Pelouse
 
-    initialisationPelouse(ln.next(), pelouse)
+    if(readFileTry(path).isSuccess){
 
-    print("Coordonnées pelouse :")
-    pelouse.affichage
+      val ln = readFile(path)
+      initialisationPelouse(ln.next(), pelouse)
+
+      print("Coordonnées pelouse : ")
+      pelouse.affichage
 
 
-    while(ln.hasNext){
-      val tondeuse = new Tondeuse
+      while(ln.hasNext){
+        val tondeuse = new Tondeuse
 
-      initialisationTondeuse(ln.next(), tondeuse)
+        initialisationTondeuse(ln.next(), tondeuse)
 
-      print("Coordonnées tondeuse :")
-      tondeuse.affichage
+        print("Coordonnées tondeuse : ")
+        tondeuse.affichage
 
-      parcoursTotal(ln.next(), tondeuse, pelouse)
+        parcoursTotal(ln.next(), tondeuse, pelouse)
 
-      tondeuse.affichage
+        tondeuse.affichage
+      }
+
+
     }
 
+  }
+
+  def readFileTry(path: String): Try[Iterator[String]] = {
+    Try(Source.fromFile(path).getLines)
   }
 
   def readFile(path: String): Iterator[String] = {
     Source.fromFile(path).getLines
   }
 
+  /*def readFile(path: String): Option[Iterator[String]] = path  match {
+    case path => Some(Source.fromFile(path).getLines)
+    case _ => None
+  }*/
+
   def initialisationPelouse(lines: String, pelouse: Pelouse) ={
     if(!(lines.isEmpty)) {
       val coordPelouse = lines.map(x => x.toString).filter(x => ! (x.contains(" ")))
-      //println(coordPelouse)
+
       pelouse.abscisse_fin = coordPelouse.apply(0).toInt
       pelouse.ordonnee_fin = coordPelouse.apply(1).toInt
     }
@@ -47,13 +62,13 @@ object ParcoursTondeuse {
   def initialisationTondeuse(lines: String, tondeuse: Tondeuse) ={
     if(!(lines.isEmpty)) {
       val coordTondeuse = lines.map(x => x.toString).filter(x => ! (x.contains(" ")))
-      //println(coordTondeuse)
+
       tondeuse.abscisse = coordTondeuse.apply(0).toInt
-      //println(tondeuse.abscisse)
+
       tondeuse.ordonnee = coordTondeuse.apply(1).toInt
-      //println(tondeuse.ordonnee)
+
       tondeuse.position = coordTondeuse.apply(2).charAt(0)
-      //println(tondeuse.position)
+
     }
   }
 
@@ -94,7 +109,6 @@ object ParcoursTondeuse {
   }
 
   def parcoursTotal(path: String, td: Tondeuse,  pel: Pelouse): Unit = {
-    println(path)
     if(path.length > 0){
       parcoursPartiel(path.charAt(0), td, pel)
       if(path.length > 1) parcoursTotal(path.substring(1), td, pel)
