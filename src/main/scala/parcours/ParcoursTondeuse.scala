@@ -6,34 +6,31 @@ import scala.util.Try
 object ParcoursTondeuse {
   def main(args: Array[String]): Unit = {
 
-    val path ="D:\\M2-IFLogiciels\\Scala\\Projet-M2-Tondeuse\\test.txt"
+    lazy val path ="D:\\M2-IFLogiciels\\Scala\\Projet-M2-Tondeuse\\test.txt"
 
-    val pelouse = new Pelouse
+    lazy val pelouse = new Pelouse
 
     if(readFileTry(path).isSuccess){
 
-      val ln = readFile(path)
+      lazy val ln = readFile(path)
       initialisationPelouse(ln.next(), pelouse)
 
       print("Coordonnées pelouse : ")
       pelouse.affichage
 
-
       while(ln.hasNext){
-        val tondeuse = new Tondeuse
-
+        lazy val tondeuse = new Tondeuse
         initialisationTondeuse(ln.next(), tondeuse)
 
-        print("Coordonnées tondeuse : ")
+        print("Coordonnées initiales tondeuse : ")
         tondeuse.affichage
 
         parcoursTotal(ln.next(), tondeuse, pelouse)
-
+        print("Coordonnées finales tondeuse : ")
         tondeuse.affichage
       }
 
-
-    }
+    } else print("Fichier introuvable.")
 
   }
 
@@ -52,7 +49,7 @@ object ParcoursTondeuse {
 
   def initialisationPelouse(lines: String, pelouse: Pelouse) ={
     if(!(lines.isEmpty)) {
-      val coordPelouse = lines.map(x => x.toString).filter(x => ! (x.contains(" ")))
+      lazy val coordPelouse = lines.map(x => x.toString).filter(x => ! (x.contains(" ")))
 
       pelouse.abscisse_fin = coordPelouse.apply(0).toInt
       pelouse.ordonnee_fin = coordPelouse.apply(1).toInt
@@ -61,7 +58,7 @@ object ParcoursTondeuse {
 
   def initialisationTondeuse(lines: String, tondeuse: Tondeuse) ={
     if(!(lines.isEmpty)) {
-      val coordTondeuse = lines.map(x => x.toString).filter(x => ! (x.contains(" ")))
+      lazy val coordTondeuse = lines.map(x => x.toString).filter(x => ! (x.contains(" ")))
 
       tondeuse.abscisse = coordTondeuse.apply(0).toInt
 
@@ -76,28 +73,28 @@ object ParcoursTondeuse {
     case 'A' => if(td.ordonnee < pel.ordonnee_fin) td.ordonnee += 1
     case 'D' => td.position = 'E'
     case 'G' => td.position = 'O'
-    case _ => Nil
+    case _ => None
   }
 
   def parcoursPartielSud(cr: Char, td: Tondeuse, pel: Pelouse) = cr match {
     case 'A' => if(td.ordonnee < pel.ordonnee_fin) td.ordonnee -= 1
     case 'D' => td.position = 'O'
     case 'G' => td.position = 'E'
-    case _ => Nil
+    case _ => None
   }
 
   def parcoursPartielEst(cr: Char, td: Tondeuse, pel: Pelouse) = cr match {
     case 'A' => if(td.abscisse < pel.abscisse_fin) td.abscisse += 1
     case 'D' => td.position = 'S'
     case 'G' => td.position = 'N'
-    case _ => Nil
+    case _ => None
   }
 
   def parcoursPartielOuest(cr: Char, td: Tondeuse, pel: Pelouse) = cr match {
     case 'A' => if(td.abscisse < pel.abscisse_fin) td.abscisse -= 1
     case 'D' => td.position = 'N'
     case 'G' => td.position = 'S'
-    case _ => Nil
+    case _ => None
   }
 
   def parcoursPartiel(ch: Char, td: Tondeuse,  pel: Pelouse): Unit = td.position match {
@@ -105,7 +102,7 @@ object ParcoursTondeuse {
     case 'S' => parcoursPartielSud(ch, td, pel)
     case 'E' => parcoursPartielEst(ch, td, pel)
     case 'O' => parcoursPartielOuest(ch, td, pel)
-    case _ => Nil
+    case _ => None
   }
 
   def parcoursTotal(path: String, td: Tondeuse,  pel: Pelouse): Unit = {
