@@ -3,6 +3,7 @@ package parcours
 import scala.io.Source
 import scala.util.Try
 
+
 object ParcoursTondeuse {
   def main(args: Array[String]): Unit = {
 
@@ -13,19 +14,19 @@ object ParcoursTondeuse {
     if(readFileTry(path).isSuccess){
 
       lazy val ln = readFile(path)
-      initialisationPelouse(ln.next(), pelouse)
+      initialisationPelouse(ln.next, pelouse)
 
       print("Coordonnées pelouse : ")
       pelouse.affichage
 
       while(ln.hasNext){
         lazy val tondeuse = new Tondeuse
-        initialisationTondeuse(ln.next(), tondeuse)
+        initialisationTondeuse(ln.next, tondeuse)
 
         print("Coordonnées initiales tondeuse : ")
         tondeuse.affichage
 
-        parcoursTotal(ln.next(), tondeuse, pelouse)
+        parcoursTotal(ln.next, tondeuse, pelouse)
         print("Coordonnées finales tondeuse : ")
         tondeuse.affichage
       }
