@@ -4,7 +4,7 @@ import scala.io.Source
 
 object ParcoursTondeuse {
   def main(args: Array[String]): Unit = {
-    //println("Hello World")
+    
     val tondeuse = new Tondeuse
     val pelouse = new Pelouse
     tondeuse.affichage
