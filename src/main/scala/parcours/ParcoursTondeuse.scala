@@ -4,20 +4,31 @@ import scala.io.Source
 
 object ParcoursTondeuse {
   def main(args: Array[String]): Unit = {
-    
-    val tondeuse = new Tondeuse
-    val pelouse = new Pelouse
-    tondeuse.affichage
+
     val path ="D:\\M2-IFLogiciels\\Scala\\Projet-M2-Tondeuse\\test.txt"
     val ln = readFile(path)
+
+    val pelouse = new Pelouse
+
     initialisationPelouse(ln.next(), pelouse)
+
+    print("Coordonnées pelouse :")
     pelouse.affichage
-    //println(ln.next())
-    initialisationTondeuse(ln.next(), tondeuse)
-    tondeuse.affichage
-    //println(ln.next())
-    parcoursTotal(ln.next(), tondeuse, pelouse)
-    tondeuse.affichage
+
+
+    while(ln.hasNext){
+      val tondeuse = new Tondeuse
+
+      initialisationTondeuse(ln.next(), tondeuse)
+
+      print("Coordonnées tondeuse :")
+      tondeuse.affichage
+
+      parcoursTotal(ln.next(), tondeuse, pelouse)
+
+      tondeuse.affichage
+    }
+
   }
 
   def readFile(path: String): Iterator[String] = {
