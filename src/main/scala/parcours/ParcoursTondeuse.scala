@@ -14,7 +14,7 @@ object ParcoursTondeuse {
     if(readFileTry(path).isSuccess){
 
       lazy val ln = readFile(path)
-      initialisationPelouse(ln.next, pelouse)
+      if(ln.hasNext) initialisationPelouse(ln.next, pelouse)
 
       print("Coordonnées pelouse : ")
       pelouse.affichage
@@ -26,7 +26,7 @@ object ParcoursTondeuse {
         print("Coordonnées initiales tondeuse : ")
         tondeuse.affichage
 
-        parcoursTotal(ln.next, tondeuse, pelouse)
+        if(ln.hasNext) parcoursTotal(ln.next, tondeuse, pelouse)
         print("Coordonnées finales tondeuse : ")
         tondeuse.affichage
       }
