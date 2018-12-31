@@ -1,13 +1,13 @@
 # Scala-Projet-Tondeuse
-Projet M2 logiciels language Scala
+Projet language Scala M2-INF logiciels / UPEM 2018-2019
 
 # Choix implémentation
 
-  *La pelouse: vu comme un objet ayant 2 attributs (abscisse finale et ordonnée finale qui représentent la limite de sa surface) et une méthode (affichage qui affiche ses coordonnées)
+  La pelouse: vu comme un objet ayant 2 attributs (abscisse finale et ordonnée finale qui représentent la limite de sa surface) et une méthode (affichage qui affiche ses coordonnées)
   
-  *La tondeuse : objet ayant 3 attibuts (abscisse et ordonnée qui sont des entiers indiquant sa position sur la pelouse et position qui est une lettre indiquant son orientation) et une méthode (affichage qui affiche ses coordonnées)
+  La tondeuse : objet ayant 3 attibuts (abscisse et ordonnée qui sont des entiers indiquant sa position sur la pelouse et position qui est une lettre indiquant son orientation) et une méthode (affichage qui affiche ses coordonnées)
   
-  *La classe principale ParcoursTondeuse qui contient la méthode Main et plusieurs autres méthodes :
+  La classe principale ParcoursTondeuse qui contient la méthode Main et plusieurs autres méthodes :
     
     Méthode Main : Méthode appelé par le compilateur en premier lors de l'exécution du projet, elle définie l'enchainement du programme de l'initialisation de la pelouse à l'affichage des coordonnées de la dernière tondeuse.
     
