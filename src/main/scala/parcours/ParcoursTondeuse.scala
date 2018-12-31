@@ -6,33 +6,34 @@ import scala.util.Try
 
 object ParcoursTondeuse {
   def main(args: Array[String]): Unit = {
+    //println(args.apply(0))
+    if(Try(args.apply(0)).isSuccess) {
+      lazy val path = args.apply(0)
 
-    lazy val path ="D:\\M2-IFLogiciels\\Scala\\Projet-M2-Tondeuse\\test.txt"
+      if (readFileTry(path).isSuccess) {
 
-    lazy val pelouse = new Pelouse
+        lazy val ln = readFile(path)
+        lazy val pelouse = new Pelouse
+        if (ln.hasNext) initialisationPelouse(ln.next, pelouse)
 
-    if(readFileTry(path).isSuccess){
+        print("Coordonnées pelouse : ")
+        pelouse.affichage
 
-      lazy val ln = readFile(path)
-      if(ln.hasNext) initialisationPelouse(ln.next, pelouse)
+        while (ln.hasNext) {
+          lazy val tondeuse = new Tondeuse
+          initialisationTondeuse(ln.next, tondeuse)
 
-      print("Coordonnées pelouse : ")
-      pelouse.affichage
+          print("Coordonnées initiales tondeuse : ")
+          tondeuse.affichage
 
-      while(ln.hasNext){
-        lazy val tondeuse = new Tondeuse
-        initialisationTondeuse(ln.next, tondeuse)
+          if (ln.hasNext) parcoursTotal(ln.next, tondeuse, pelouse)
+          print("Coordonnées finales tondeuse : ")
+          tondeuse.affichage
+        }
 
-        print("Coordonnées initiales tondeuse : ")
-        tondeuse.affichage
+      } else println("Fichier introuvable.")
 
-        if(ln.hasNext) parcoursTotal(ln.next, tondeuse, pelouse)
-        print("Coordonnées finales tondeuse : ")
-        tondeuse.affichage
-      }
-
-    } else print("Fichier introuvable.")
-
+    } else println("Chemin du fichier non spécifié.")
   }
 
   def readFileTry(path: String): Try[Iterator[String]] = {
