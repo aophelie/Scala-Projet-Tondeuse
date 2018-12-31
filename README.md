@@ -24,8 +24,7 @@ Projet language Scala M2-INF logiciels / UPEM 2018-2019
 
 # Exécution du programme:
 
-C'est un projet scala sous SBT
-En ligne de commande (sbt shell), pour exécuter le programme, faire : 
+C'est un projet scala sous SBT. En ligne de commande (sbt shell), pour exécuter le programme, faire : 
 #                                                                       run "cheminFichier.txt"
   
     Si vous ne précisez pas de chemin pour le fichier, le programme va s'arrêter en vous indiquant que vous n'avez pas spécifier le chemin du fichier    
